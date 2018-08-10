@@ -55,13 +55,14 @@ def test_csv():
 
     # run training / evaluation
     keras_retinanet.bin.train.main([
+        '--backbone=vgg16',
         '--epochs=1',
         '--steps=1',
         '--no-weights',
         '--no-snapshots',
         'csv',
-        'tests/test-data/csv/annotations.csv',
-        'tests/test-data/csv/classes.csv',
+        r'C:\gwplane\plane.csv',
+        r'C:\gwplane\class.csv',
     ])
 
 
@@ -80,3 +81,7 @@ def test_vgg():
         'coco',
         'tests/test-data/coco',
     ])
+
+
+if __name__ == '__main__':
+    test_csv()
