@@ -365,6 +365,7 @@ def parse_args(args):
     return check_args(parser.parse_args(args))
 
 
+a, b = 0, 0
 def main(args=None):
     # parse arguments
     if args is None:
@@ -384,6 +385,14 @@ def main(args=None):
 
     # create the generators
     train_generator, validation_generator = create_generators(args)
+    global a, b
+    a, b = next(train_generator)
+    print(a[0].shape, b[0].shape)
+    import matplotlib.pyplot as plt
+    plt.imshow(a[0][:, :, 1] + 116.779)
+
+
+if __name__ == 'lsdfj':
 
     # create the model
     if args.snapshot is not None:
@@ -435,4 +444,13 @@ def main(args=None):
     )
 
 if __name__ == '__main__':
-    main()
+    main([
+        '--backbone=vgg16',
+        '--epochs=1',
+        '--steps=1',
+        '--no-weights',
+        '--no-snapshots',
+        'csv',
+        r'C:\gwplane\plane.csv',
+        r'C:\gwplane\class.csv',
+    ])
